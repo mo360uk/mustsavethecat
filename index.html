@@ -297,32 +297,20 @@ h2{font-size:clamp(36px,6vw,72px);margin-bottom:20px}
 }
 
 
-/* Product Card Secondary Hover */
+/* Product Card Photo Gallery Switcher */
 .card .img {
   position: relative;
   overflow: hidden;
 }
 .card .img img.main-sock {
-  transition: opacity .35s ease, transform .35s ease;
+  transition: opacity .25s ease, transform .25s ease;
 }
-.card .img img.hover-sock {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity .35s ease, transform .35s ease;
-  pointer-events: none;
-}
-.card:hover .img img.main-sock {
-  opacity: 0;
-  transform: scale(0.95);
-}
-.card:hover .img img.hover-sock {
-  opacity: 1;
-  transform: scale(1.02);
-}
+.photo-tabs{display:flex;gap:6px}
+.photo-tabs button{flex:1;background:rgba(255,255,255,.03);color:var(--mute);border:1px solid var(--line);padding:7px 6px;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;transition:.15s;cursor:pointer}
+.photo-tabs button:hover{border-color:var(--gold);color:#fff}
+.photo-tabs button[aria-pressed=true]{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
+.one-size-pill{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--txt);background:rgba(255,255,255,.02)}
+.one-size-pill span:last-child{color:var(--mute);font-weight:500}
 
 /* announcement */
 .ann{background:var(--gold);color:#0a0a0a;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:9px 12px}
@@ -1762,6 +1750,26 @@ aside .h button{background:none;border:0;font-size:30px;line-height:1}
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://mustsavethecat.co.uk/#website",
+      "url": "https://mustsavethecat.co.uk/",
+      "name": "Must Save The Cat",
+      "description": "Luxury 200N combed cotton art socks. One Size (UK 4-11). 10% of every order funds street cat veterinary rescue in Cairo and the UK.",
+      "inLanguage": "en-GB",
+      "publisher": { "@id": "https://mustsavethecat.co.uk/#store" }
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": ["Shop Batch 01 Socks", "Christmas Gift Packs", "Street Cat Rescue Mission", "One Size & Care Guide", "Shipping & Returns"],
+      "url": [
+        "https://mustsavethecat.co.uk/#shop",
+        "https://mustsavethecat.co.uk/#bundles",
+        "https://mustsavethecat.co.uk/#mission",
+        "https://mustsavethecat.co.uk/#sizing",
+        "https://mustsavethecat.co.uk/#policies"
+      ]
+    },
+    {
       "@type": "OnlineStore",
       "@id": "https://mustsavethecat.co.uk/#store",
       "name": "Must Save The Cat",
@@ -2318,16 +2326,14 @@ aside .h button{background:none;border:0;font-size:30px;line-height:1}
 
 <!-- 9 SIZING -->
 <section id="sizing"><div class="wrap">
-  <div class="eyebrow">Sizing Guide</div><h2>Find Your Fit</h2>
+  <div class="eyebrow">Sizing Guide</div><h2>One Size Fits All</h2>
   <div class="tog" role="group" aria-label="Highlight region"><button aria-pressed="true" data-r="uk">UK</button><button aria-pressed="false" data-r="us">US</button><button aria-pressed="false" data-r="eu">EU</button></div>
   <div class="tw"><table id="sizeTbl">
-    <thead><tr><th>MSTC Size</th><th data-c="uk">UK</th><th data-c="us">US (Men's)</th><th data-c="eu">EU</th><th>Foot length</th></tr></thead>
+    <thead><tr><th>MSTC Fit</th><th data-c="uk">UK</th><th data-c="us">US (Unisex)</th><th data-c="eu">EU</th><th>Foot length</th></tr></thead>
     <tbody>
-      <tr><td><b>S</b></td><td data-c="uk">3 to 6</td><td data-c="us">4 to 7</td><td data-c="eu">36 to 39</td><td>22 to 24.5 cm</td></tr>
-      <tr><td><b>M</b></td><td data-c="uk">6 to 9</td><td data-c="us">7 to 10</td><td data-c="eu">39 to 43</td><td>24.5 to 27 cm</td></tr>
-      <tr><td><b>L</b></td><td data-c="uk">9 to 12</td><td data-c="us">10 to 13</td><td data-c="eu">43 to 47</td><td>27 to 30 cm</td></tr>
+      <tr><td><b>One Size</b></td><td data-c="uk">4 to 11</td><td data-c="us">5 to 12</td><td data-c="eu">37 to 45</td><td>23 to 29 cm</td></tr>
     </tbody></table></div>
-  <p class="note">Between sizes? Size down for a firmer arch hold, up for a relaxed fit. Conversions are approximate.</p>
+  <p class="note">Every Must Save The Cat edition is knitted on 200-needle combed cotton with adaptive arch stretch for a comfortable unisex One Size fit.</p>
 </div></section>
 
 
@@ -2874,99 +2880,115 @@ aside .h button{background:none;border:0;font-size:30px;line-height:1}
 <script>
 /* ===== SHOPIFY CONFIG : set these before launch ===== */
 const SHOP_DOMAIN = "shop.mo360immersivestudio.co.uk"; // live Shopify storefront
-// Real Shopify variant IDs (S/M/L) per edition · Xmas Sale pricing + Limited Stock.
+// Real Shopify One Size variant IDs per edition · Xmas Sale pricing + Limited Stock.
 const PRODUCTS = [
- {id:"pharaoh-hieroglyphs",name:"Pharaoh Hieroglyphs",sub:"Edition 01 · Jacquard hieroglyph knit",collection:"New Collection",origPrice:14,price:12.6,color:"#F6C90E",badge:"New Collection",img:"assets/sock_01_pharaoh_cutout.png",hoverImg:"assets/shoot_08_kraft_bag_socks_spread_flatlay.png",stock:{S:9,M:7,L:11},v:{"S": "57665180139844", "M": "57665180172612", "L": "57665180205380"}},
- {id:"giza-guardian-sphinx",name:"Giza Guardian Sphinx",sub:"Edition 02 · Sphinx & pyramids",collection:"New Collection",origPrice:14,price:12.6,color:"#d8b98a",badge:"New Collection",img:"assets/sock_02_sphinx_cutout.png",hoverImg:"assets/art_01_sphinx_pyramids_cat_illustration.png",stock:{S:8,M:10,L:7},v:{"S": "57665183351108", "M": "57665183383876", "L": "57665183416644"}},
- {id:"egyptian-street-cat-at-night",name:"Egyptian Street Cat at Night",sub:"Edition 07 · Cairo nocturnal cat",collection:"New Collection",origPrice:12,price:10.8,color:"#2c3e78",badge:"New Collection",img:"assets/sock_07_street_cat_night_cutout.png",hoverImg:"assets/sock_07_street_cat_night_art_1x1.png",stock:{S:10,M:8,L:9},v:{"S": "57714020221252", "M": "57714020254020", "L": "57714020286788"}},
- {id:"horizon-sunset-cat",name:"Horizon Sunset Cat",sub:"Edition 03 · Sunset skyline cat",collection:"Old Collection",origPrice:10,price:9.0,color:"#e07a3f",badge:"Old Collection",img:"assets/sock_03_horizon_cutout.png",hoverImg:"assets/shoot_15_watermelon_and_sunset_grass_nap.png",stock:{S:8,M:7,L:9},v:{"S": "57665183547716", "M": "57665183580484", "L": "57665183613252"}},
- {id:"electric-stripes-blue-cat",name:"Electric Stripes Blue Cat",sub:"Edition 04 · Rainbow stripe cat",collection:"Old Collection",origPrice:10,price:9.0,color:"#3a7bd5",badge:"Best Seller",img:"assets/sock_04_stripes_cutout.png",hoverImg:"assets/onfeet_01_electric_stripes_nike_grass.png",stock:{S:7,M:9,L:11},v:{"S": "57665183646020", "M": "57665183678788", "L": "57665183711556"}},
- {id:"all-over-sketch-cats",name:"All-Over Sketch Cats",sub:"Edition 05 · All-over sketch cats",collection:"Old Collection",origPrice:10,price:9.0,color:"#8a8a8a",badge:"Old Collection",img:"assets/sock_05_all_over_cats_cutout.png",hoverImg:"assets/onfeet_03_all_over_cats_newbalance_grass.png",stock:{S:7,M:8,L:9},v:{"S": "57665183744324", "M": "57665183777092", "L": "57665183809860"}},
- {id:"duck-and-cat-collector",name:"Duck & Cat Collector",sub:"Edition 06 · Collector edition",collection:"Old Collection",origPrice:10,price:9.0,color:"#eee6d0",badge:"Old Collection",img:"assets/sock_06_duck_cutout.png",hoverImg:"assets/art_07_cat_duck_painting_1x1.png",stock:{S:10,M:8,L:12},v:{"S": "57665183842628", "M": "57665183875396", "L": "57665183908164"}},
+ {id:"pharaoh-hieroglyphs",name:"Pharaoh Hieroglyphs",sub:"Edition 01 · Jacquard hieroglyph knit",collection:"New Collection",origPrice:14,price:12.6,color:"#F6C90E",badge:"New Collection",img:"assets/sock_01_pharaoh_cutout.png",hoverImg:"assets/art_04_kraft_bag_cat_city_lineart.png",pkgImg:"assets/shoot_08_kraft_bag_socks_spread_flatlay.png",stock:27,variantId:"57665180139844"},
+ {id:"giza-guardian-sphinx",name:"Giza Guardian Sphinx",sub:"Edition 02 · Sphinx & pyramids",collection:"New Collection",origPrice:14,price:12.6,color:"#d8b98a",badge:"New Collection",img:"assets/sock_02_sphinx_cutout.png",hoverImg:"assets/art_01_sphinx_pyramids_cat_illustration.png",pkgImg:"assets/pkg_01_kraft_bag_hero_4x5.png",stock:25,variantId:"57665183351108"},
+ {id:"egyptian-street-cat-at-night",name:"Egyptian Street Cat at Night",sub:"Edition 07 · Cairo nocturnal cat",collection:"New Collection",origPrice:12,price:10.8,color:"#2c3e78",badge:"New Collection",img:"assets/sock_07_street_cat_night_cutout.png",hoverImg:"assets/sock_07_street_cat_night_art_1x1.png",pkgImg:"assets/pkg_02_kraft_bag_on_socks_spread.png",stock:27,variantId:"57714020221252"},
+ {id:"horizon-sunset-cat",name:"Horizon Sunset Cat",sub:"Edition 03 · Sunset skyline cat",collection:"Old Collection",origPrice:10,price:9.0,color:"#e07a3f",badge:"Old Collection",img:"assets/sock_03_horizon_cutout.png",hoverImg:"assets/shoot_15_watermelon_and_sunset_grass_nap.png",pkgImg:"assets/pkg_03_cat_hangtag_and_stickers.png",stock:24,variantId:"57665183547716"},
+ {id:"electric-stripes-blue-cat",name:"Electric Stripes Blue Cat",sub:"Edition 04 · Rainbow stripe cat",collection:"Old Collection",origPrice:10,price:9.0,color:"#3a7bd5",badge:"Best Seller",img:"assets/sock_04_stripes_cutout.png",hoverImg:"assets/onfeet_01_electric_stripes_nike_grass.png",pkgImg:"assets/pkg_05_beanie_cat_belly_band_macro.png",stock:27,variantId:"57665183646020"},
+ {id:"all-over-sketch-cats",name:"All-Over Sketch Cats",sub:"Edition 05 · All-over sketch cats",collection:"Old Collection",origPrice:10,price:9.0,color:"#8a8a8a",badge:"Old Collection",img:"assets/sock_05_all_over_cats_cutout.png",hoverImg:"assets/onfeet_03_all_over_cats_newbalance_grass.png",pkgImg:"assets/pkg_06_kraft_bag_doodles_unboxing_bw.png",stock:24,variantId:"57665183744324"},
+ {id:"duck-and-cat-collector",name:"Duck & Cat Collector",sub:"Edition 06 · Collector edition",collection:"Old Collection",origPrice:10,price:9.0,color:"#eee6d0",badge:"Old Collection",img:"assets/sock_06_duck_cutout.png",hoverImg:"assets/art_07_cat_duck_painting_1x1.png",pkgImg:"assets/pkg_07_cat_paw_print_stamp_macro.png",stock:30,variantId:"57665183842628"},
 ];
 const BUNDLES = [
- {id:"ancient-egypt-cairo-night-trio",name:"Ancient Egypt & Cairo Night Trio (3 Pairs)",sub:"Editions 01 (Pharaoh), 02 (Giza Sphinx) & 07 (Street Cat at Night) · £3.20 donated to cat charities",collection:"Xmas Gift Pack",origPrice:40,price:32.0,color:"#F6C90E",badge:"Save £8 · 3 Pairs",pill:"Save £8",img:"assets/sock_01_pharaoh_cutout.png",hoverImg:"assets/sock_02_sphinx_cutout.png",stock:{S:10,M:10,L:10},v:{"S": "57714421170500", "M": "57714421203268", "L": "57714421236036"}},
- {id:"classic-cat-socks-trio",name:"Classic Trio Gift Pack (3 Pairs)",sub:"#1 Best Seller Ed. 04 (Electric Stripes) + Ed. 03 (Horizon Sunset) + Ed. 05 (Sketch Cats) · £2.50 donated",collection:"Xmas Gift Pack",origPrice:30,price:25.0,color:"#3a7bd5",badge:"Best Seller",pill:"Save £5",img:"assets/sock_04_stripes_cutout.png",hoverImg:"assets/onfeet_01_electric_stripes_nike_grass.png",stock:{S:10,M:10,L:10},v:{"S": "57714421268804", "M": "57714421301572", "L": "57714421334340"}},
- {id:"collector-4-pair-christmas-box",name:"Collector 4-Pair Christmas Box",sub:"4-pair collector set: Ed. 04 (Stripes), 01 (Pharaoh), 02 (Sphinx) & 07 (Street Cat at Night) · £3.60 donated",collection:"Xmas Gift Pack",origPrice:46,price:36.0,color:"#2c3e78",badge:"Save £10 · 4 Pairs",pill:"Save £10",img:"assets/sock_07_street_cat_night_cutout.png",hoverImg:"assets/sock_07_street_cat_night_art_1x1.png",stock:{S:10,M:10,L:10},v:{"S": "57714421367108", "M": "57714421399876", "L": "57714421432644"}},
+ {id:"ancient-egypt-cairo-night-trio",name:"Ancient Egypt & Cairo Night Trio (3 Pairs)",sub:"Editions 01 (Pharaoh), 02 (Giza Sphinx) & 07 (Street Cat at Night) · £3.20 donated to cat charities",collection:"Xmas Gift Pack",origPrice:40,price:32.0,color:"#F6C90E",badge:"Save £8 · 3 Pairs",pill:"Save £8",img:"assets/sock_01_pharaoh_cutout.png",hoverImg:"assets/sock_02_sphinx_cutout.png",pkgImg:"assets/pkg_04_full_collection_flatlay.png",stock:30,variantId:"57714421170500"},
+ {id:"classic-cat-socks-trio",name:"Classic Trio Gift Pack (3 Pairs)",sub:"#1 Best Seller Ed. 04 (Electric Stripes) + Ed. 03 (Horizon Sunset) + Ed. 05 (Sketch Cats) · £2.50 donated",collection:"Xmas Gift Pack",origPrice:30,price:25.0,color:"#3a7bd5",badge:"Best Seller",pill:"Save £5",img:"assets/sock_04_stripes_cutout.png",hoverImg:"assets/onfeet_01_electric_stripes_nike_grass.png",pkgImg:"assets/pkg_02_kraft_bag_on_socks_spread.png",stock:30,variantId:"57714421268804"},
+ {id:"collector-4-pair-christmas-box",name:"Collector 4-Pair Christmas Box",sub:"4-pair collector set: Ed. 04 (Stripes), 01 (Pharaoh), 02 (Sphinx) & 07 (Street Cat at Night) · £3.60 donated",collection:"Xmas Gift Pack",origPrice:46,price:36.0,color:"#2c3e78",badge:"Save £10 · 4 Pairs",pill:"Save £10",img:"assets/sock_07_street_cat_night_cutout.png",hoverImg:"assets/sock_07_street_cat_night_art_1x1.png",pkgImg:"assets/pkg_04_full_collection_flatlay.png",stock:30,variantId:"57714421367108"},
 ];
 const ALL_ITEMS = [...PRODUCTS, ...BUNDLES];
 const MAXSTOCK=30, FREE_SHIP=25;
 const $=s=>document.querySelector(s), money=n=>"£"+n.toFixed(2);
-let cart=JSON.parse(localStorage.getItem("mstc_cart")||"[]").filter(i=>ALL_ITEMS.some(p=>p.id===i.id));
-const sel={};
+let cart=JSON.parse(localStorage.getItem("mstc_cart")||"[]").filter(i=>ALL_ITEMS.some(p=>p.id===i.id)).map(i=>({id:i.id,q:i.q||1}));
+
+function cardPhotos(p){
+  return [
+    {label:"Sock",src:p.img,alt:`${p.name} sock`},
+    {label:"Design",src:p.hoverImg||p.img,alt:`${p.name} design view`},
+    {label:"Package",src:p.pkgImg||"assets/pkg_01_kraft_bag_hero_4x5.png",alt:`${p.name} kraft packaging`}
+  ];
+}
 
 /* Product grid */
-$("#grid").innerHTML=PRODUCTS.map(p=>{sel[p.id]="M";return `
+$("#grid").innerHTML=PRODUCTS.map(p=>{const photos=cardPhotos(p);return `
 <article class="card" data-id="${p.id}">
  <div class="img" style="background:radial-gradient(circle at 50% 40%,${p.color}33,#0a0a0a 75%)">
   <span class="badge ${p.badge==='Best Seller'?'best-seller':''}">${p.badge==='Best Seller'?'★ Best Seller':p.collection}</span>
   <span class="badge-limited">Limited Stock</span>
-  <img class="main-sock" src="${p.img}" alt="${p.name} sock" loading="lazy"><img class="hover-sock" src="${p.hoverImg||p.img}" alt="${p.name} on-feet styling" loading="lazy"></div>
+  <img class="main-sock" src="${photos[0].src}" alt="${photos[0].alt}" loading="lazy"></div>
  <div class="bd">
+  <div class="photo-tabs" role="group" aria-label="Product photos for ${p.name}">${photos.map((ph,idx)=>`<button type="button" data-photo="${idx}" aria-pressed="${idx===0}">${ph.label}</button>`).join("")}</div>
   <div class="price-top"><span class="price-sale">${money(p.price)}</span><span class="price-orig">${money(p.origPrice)}</span><span class="sale-pill">10% Xmas Sale</span></div>
   <div class="col-tag ${p.collection==='New Collection'?'new-col':'old-col'}">${p.collection}${p.badge==='Best Seller'?' · ★ Best Seller':''}</div>
   <h3>${p.name}</h3><div class="sub">${p.sub}</div>
-  <div class="sizes" role="group" aria-label="Size">${["S","M","L"].map(s=>`<button data-s="${s}" aria-pressed="${s==="M"}" ${p.stock[s]===0?'style="opacity:.4;text-decoration:line-through"':""}>${s}</button>`).join("")}</div>
+  <div class="one-size-pill"><span>One Size</span><span>UK 4–11 · EU 37–45</span></div>
   <div class="stock"></div>
   <button class="add">Add to Bag</button></div></article>`}).join("");
 
 /* Christmas Gift Bundles grid */
 if($("#bundleGrid")){
-  $("#bundleGrid").innerHTML=BUNDLES.map(p=>{sel[p.id]="M";return `
+  $("#bundleGrid").innerHTML=BUNDLES.map(p=>{const photos=cardPhotos(p);return `
   <article class="card mstc-bcard" data-id="${p.id}">
    <div class="img" style="background:radial-gradient(circle at 50% 45%,${p.color}33,#0a0a0a 75%)">
     <span class="badge ${p.badge==='Best Seller'?'best-seller':''}">${p.badge==='Best Seller'?'★ Best Seller · 3 Pairs':p.badge}</span>
     <span class="badge-limited">Free UK Shipping</span>
-    <img class="main-sock" src="${p.img}" alt="${p.name}" loading="lazy"><img class="hover-sock" src="${p.hoverImg||p.img}" alt="${p.name} alternate view" loading="lazy"></div>
+    <img class="main-sock" src="${photos[0].src}" alt="${photos[0].alt}" loading="lazy"></div>
    <div class="bd">
+    <div class="photo-tabs" role="group" aria-label="Bundle photos for ${p.name}">${photos.map((ph,idx)=>`<button type="button" data-photo="${idx}" aria-pressed="${idx===0}">${ph.label}</button>`).join("")}</div>
     <div class="price-top"><span class="price-sale">${money(p.price)}</span><span class="price-orig">${money(p.origPrice)}</span><span class="sale-pill">${p.pill}</span></div>
     <div class="mstc-bcard-ship">✓ Free UK Shipping Included (£25+ threshold)</div>
     <h3>${p.name}</h3><div class="sub">${p.sub}</div>
-    <div class="sizes" role="group" aria-label="Bundle Size">${["S","M","L"].map(s=>`<button data-s="${s}" aria-pressed="${s==="M"}">${s}</button>`).join("")}</div>
+    <div class="one-size-pill"><span>One Size</span><span>UK 4–11 · EU 37–45</span></div>
     <div class="stock"></div>
     <button class="add">Add Bundle to Bag</button></div></article>`}).join("");
 }
 
 function stockUI(card){
   const p=ALL_ITEMS.find(x=>x.id===card.dataset.id);if(!p)return;
-  const s=sel[p.id],n=p.stock[s]-(cart.find(i=>i.id===p.id&&i.s===s)?.q||0);
+  const n=p.stock-(cart.find(i=>i.id===p.id)?.q||0);
   const el=card.querySelector(".stock"),b=card.querySelector(".add");
   const isBundle=BUNDLES.some(x=>x.id===p.id);
   el.className="stock"+(n>0&&n<=5?" low":"");
-  el.innerHTML=n<=0?"Sold out in size "+s:`<span>${n<=5?"Only "+n+" left":n+" in stock"}</span><span class="bar"><i style="width:${Math.min(100,n/MAXSTOCK*100)}%"></i></span>`;
+  el.innerHTML=n<=0?"Sold out":`<span>${n<=5?"Only "+n+" left":n+" in stock"}</span><span class="bar"><i style="width:${Math.min(100,n/MAXSTOCK*100)}%"></i></span>`;
   b.disabled=n<=0;b.textContent=n<=0?"Sold Out":(isBundle?"Add Bundle to Bag":"Add to Bag");
-  if(!p.v[s]){el.innerHTML="Checkout opening soon";b.disabled=true;b.textContent="Coming Soon";}
+  if(!p.variantId){el.innerHTML="Checkout opening soon";b.disabled=true;b.textContent="Coming Soon";}
 }
 document.querySelectorAll(".card").forEach(stockUI);
 function handleCardGridClick(e){
   const card=e.target.closest(".card");if(!card)return;const id=card.dataset.id;
-  const sb=e.target.closest("[data-s]");
-  if(sb){sel[id]=sb.dataset.s;card.querySelectorAll("[data-s]").forEach(b=>b.setAttribute("aria-pressed",b===sb));stockUI(card);}
-  if(e.target.closest(".add")){addItem(id,sel[id]);}
+  const pb=e.target.closest("[data-photo]");
+  if(pb){
+    const p=ALL_ITEMS.find(x=>x.id===id);if(!p)return;
+    const photos=cardPhotos(p);const ph=photos[+pb.dataset.photo]||photos[0];
+    const img=card.querySelector(".img img.main-sock");
+    if(img){img.src=ph.src;img.alt=ph.alt;}
+    card.querySelectorAll("[data-photo]").forEach(b=>b.setAttribute("aria-pressed",b===pb?"true":"false"));
+    return;
+  }
+  if(e.target.closest(".add")){addItem(id);}
 }
 $("#grid").addEventListener("click",handleCardGridClick);
 if($("#bundleGrid"))$("#bundleGrid").addEventListener("click",handleCardGridClick);
 
 /* Cart */
 function save(){localStorage.setItem("mstc_cart",JSON.stringify(cart));render()}
-function addItem(id,s){
+function addItem(id){
   const p=ALL_ITEMS.find(x=>x.id===id);if(!p)return;
-  const ex=cart.find(i=>i.id===id&&i.s===s);
-  if((ex?.q||0)>=p.stock[s])return;
-  ex?ex.q++:cart.push({id,s,q:1});save();openCart();toast(p.name+" ("+s+") added");
+  const ex=cart.find(i=>i.id===id);
+  if((ex?.q||0)>=p.stock)return;
+  ex?ex.q++:cart.push({id,q:1});save();openCart();toast(p.name+" (One Size) added");
 }
 function render(){
   const n=cart.reduce((a,i)=>a+i.q,0),sub=cart.reduce((a,i)=>{const p=ALL_ITEMS.find(x=>x.id===i.id);return a+(p?i.q*p.price:0);},0);
   $("#count").textContent=n;$("#sub").textContent=money(sub);
   $("#items").innerHTML=cart.length?cart.map((i,k)=>{const p=ALL_ITEMS.find(x=>x.id===i.id);return `
    <div class="li"><div class="th" style="background:${p.color}22"><img src="${p.img}" alt=""></div>
-   <div class="n"><b>${p.name}</b><small>Size ${i.s} · ${money(p.price)}</small>
+   <div class="n"><b>${p.name}</b><small>One Size · ${money(p.price)}</small>
    <div class="q"><button data-k="${k}" data-d="-1" aria-label="Decrease">−</button><span>${i.q}</span><button data-k="${k}" data-d="1" aria-label="Increase">+</button> <button class="rm" data-k="${k}" data-d="x">Remove</button></div></div></div>`}).join(""):'<div class="empty">Your bag is empty.</div>';
   const left=FREE_SHIP-sub;
   $("#free").textContent=!cart.length?"":left>0?`Add ${money(left)} more for free UK shipping`:"You've unlocked free UK shipping";
   // Shopify cart permalink: /cart/VARIANT:QTY,VARIANT:QTY (ONLY checkout navigates to Shopify)
   const co=$("#checkout");
-  if(cart.length){co.href=`https://${SHOP_DOMAIN}/cart/`+cart.map(i=>ALL_ITEMS.find(p=>p.id===i.id).v[i.s]+":"+i.q).join(",")+"?checkout";co.style.opacity=1;co.setAttribute("aria-disabled","false");}
+  if(cart.length){co.href=`https://${SHOP_DOMAIN}/cart/`+cart.map(i=>ALL_ITEMS.find(p=>p.id===i.id).variantId+":"+i.q).join(",")+"?checkout";co.style.opacity=1;co.setAttribute("aria-disabled","false");}
   else{co.href="#shop";co.style.opacity=.55;co.setAttribute("aria-disabled","true");}
   document.querySelectorAll(".card").forEach(stockUI);
 }
@@ -2976,7 +2998,7 @@ $("#checkout").addEventListener("click",e=>{
 $("#items").addEventListener("click",e=>{
   const b=e.target.closest("[data-k]");if(!b)return;const it=cart[b.dataset.k],d=b.dataset.d;
   if(d==="x")cart.splice(b.dataset.k,1);
-  else{const p=ALL_ITEMS.find(x=>x.id===it.id);it.q+=+d;if(it.q>p.stock[it.s])it.q=p.stock[it.s];if(it.q<1)cart.splice(b.dataset.k,1);}
+  else{const p=ALL_ITEMS.find(x=>x.id===it.id);it.q+=+d;if(it.q>p.stock)it.q=p.stock;if(it.q<1)cart.splice(b.dataset.k,1);}
   save();
 });
 const dr=$("#drawer");
