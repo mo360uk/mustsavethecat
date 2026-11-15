@@ -2246,9 +2246,7 @@ aside .h button{background:none;border:0;font-size:30px;line-height:1}
     .mstc-bcard:hover{transform:translateY(-4px);border-color:#F6C90E}
     .mstc-bcard .img{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden}
     .mstc-bcard .img img{max-width:86%;max-height:86%;object-fit:contain;transition:opacity .25s ease,transform .25s ease}
-    .mstc-bcard .img .hover-sock{position:absolute;inset:0;margin:auto;opacity:0}
-    .mstc-bcard:hover .img .main-sock{opacity:0;transform:scale(.96)}
-    .mstc-bcard:hover .img .hover-sock{opacity:1;transform:scale(1.03)}
+    .mstc-bcard:hover .img img.main-sock{transform:scale(1.03)}
     .mstc-bcard .bd{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
     .mstc-bcard h3{font-family:'Fredoka',sans-serif;font-size:21px;line-height:1.25;color:#fff;margin:0}
     .mstc-bcard .sub{font-size:13.5px;line-height:1.5;color:#D8B98A;margin:0;flex:1}
@@ -2878,6 +2876,32 @@ aside .h button{background:none;border:0;font-size:30px;line-height:1}
 <symbol id="sockShape" viewBox="0 0 200 280"><path d="M60 10h70v120l50 55c14 18 8 50-22 50H60c-14 0-22-14-22-30z" style="fill:var(--c,#F6C90E)"/><rect x="60" y="10" width="70" height="26" fill="#0a0a0a" opacity=".85"/><rect x="60" y="42" width="70" height="5" fill="#0a0a0a" opacity=".3"/><path d="M44 220h42v30H56a12 12 0 01-12-12zM140 224h40a10 10 0 01-4 26h-36z" fill="#0a0a0a" opacity=".35"/><text x="95" y="104" font-family="Anton,Impact" font-size="22" text-anchor="middle" fill="#0a0a0a" opacity=".8">MSTC</text></symbol>
 </defs></svg>
 
+<!-- BRAND FILM MODAL -->
+<div class="film-modal" id="filmModal" aria-hidden="true">
+  <div class="film-backdrop" id="filmBackdrop"></div>
+  <div class="film-container">
+    <div class="film-header">
+      <div class="film-brand">
+        <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="MSTC">
+        <div>
+          <h4>Must Save The Cat • Brand Story</h4>
+          <p>Cairo Street Origins • 10% Direct Rescue Fund</p>
+        </div>
+      </div>
+      <button class="film-close" id="closeFilmBtn" aria-label="Close modal">&times;</button>
+    </div>
+    <div class="film-body">
+      <video id="brandFilmPlayer" controls playsinline>
+        <source src="assets/mstc_brand_film_clean.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="film-footer">
+      <p>"Cats take long naps, but they always come back."</p>
+      <a href="#shop" class="btn gold btn-sm" id="modalShopBtn">Shop Batch 01</a>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ===== SHOPIFY CONFIG : set these before launch ===== */
 const SHOP_DOMAIN = "shop.mo360immersivestudio.co.uk"; // live Shopify storefront
@@ -2903,7 +2927,7 @@ let cart=JSON.parse(localStorage.getItem("mstc_cart")||"[]").filter(i=>ALL_ITEMS
 
 function cardPhotos(p){
   return [
-    {label:"Sock",src:p.img,alt:`${p.name} sock`},
+    {label:"Socks",src:p.img,alt:`${p.name} socks`},
     {label:"Design",src:p.hoverImg||p.img,alt:`${p.name} design view`},
     {label:"Package",src:p.pkgImg||"assets/pkg_01_kraft_bag_hero_4x5.png",alt:`${p.name} kraft packaging`}
   ];
@@ -3070,24 +3094,42 @@ const filmBackdrop = document.getElementById("filmBackdrop");
 const modalShopBtn = document.getElementById("modalShopBtn");
 
 function openBrandFilm() {
-  if (filmModal && brandFilmPlayer) {
-    filmModal.classList.add("active");
-    filmModal.setAttribute("aria-hidden", "false");
-    brandFilmPlayer.currentTime = 0;
-    brandFilmPlayer.play().catch(()=>{});
+  const fm = filmModal || document.getElementById("filmModal");
+  const fp = brandFilmPlayer || document.getElementById("brandFilmPlayer");
+  if (fm) {
+    fm.classList.add("active");
+    fm.setAttribute("aria-hidden", "false");
+    if (fp) {
+      fp.currentTime = 0;
+      fp.play().catch(()=>{});
+    }
   }
 }
 function closeBrandFilm() {
-  if (filmModal && brandFilmPlayer) {
-    filmModal.classList.remove("active");
-    filmModal.setAttribute("aria-hidden", "true");
-    brandFilmPlayer.pause();
+  const fm = filmModal || document.getElementById("filmModal");
+  const fp = brandFilmPlayer || document.getElementById("brandFilmPlayer");
+  if (fm) {
+    fm.classList.remove("active");
+    fm.setAttribute("aria-hidden", "true");
+    if (fp) {
+      fp.pause();
+    }
   }
 }
 if (openFilmBtn) openFilmBtn.onclick = openBrandFilm;
 if (closeFilmBtn) closeFilmBtn.onclick = closeBrandFilm;
 if (filmBackdrop) filmBackdrop.onclick = closeBrandFilm;
 if (modalShopBtn) modalShopBtn.onclick = closeBrandFilm;
+
+// Preload all gallery switcher photos for instant zero-latency switching
+try {
+  ALL_ITEMS.forEach(p => {
+    cardPhotos(p).forEach(ph => {
+      const im = new Image();
+      im.src = ph.src;
+    });
+  });
+} catch(e){}
 
 /* Reel Sound Toggle */
 const reelVideo = document.getElementById("reelVideo");
@@ -3102,31 +3144,6 @@ if (reelVideo && reelMuteToggle) {
 }
 
 </script>
-<!-- BRAND FILM MODAL -->
-<div class="film-modal" id="filmModal" aria-hidden="true">
-  <div class="film-backdrop" id="filmBackdrop"></div>
-  <div class="film-container">
-    <div class="film-header">
-      <div class="film-brand">
-        <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="MSTC">
-        <div>
-          <h4>Must Save The Cat • Brand Story</h4>
-          <p>Cairo Street Origins • 10% Direct Rescue Fund</p>
-        </div>
-      </div>
-      <button class="film-close" id="closeFilmBtn" aria-label="Close modal">&times;</button>
-    </div>
-    <div class="film-body">
-      <video id="brandFilmPlayer" controls playsinline>
-        <source src="assets/mstc_brand_film_clean.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="film-footer">
-      <p>"Cats take long naps, but they always come back."</p>
-      <a href="#shop" class="btn gold btn-sm" id="modalShopBtn">Shop Batch 01</a>
-    </div>
-  </div>
-</div>
 </div>
 <!-- UK GDPR / PECR COOKIE NOTICE -->
 <div id="mstcCookieBar" role="dialog" aria-live="polite" aria-label="Cookie preferences" style="display:none;position:fixed;bottom:16px;left:16px;right:16px;max-width:720px;margin:0 auto;z-index:9999;background:#0a0a0a;color:#FAF7F2;border:1px solid #F6C90E;border-radius:12px;padding:16px 20px;box-shadow:0 14px 40px rgba(0,0,0,0.55);font-family:inherit;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
