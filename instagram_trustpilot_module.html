@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Must Save The Cat — Genuine Instagram & Trustpilot Integration Module</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- =========================================================================
+       MSTC DROP-IN MODULE STYLES (Paste into <style> in index.html)
+       ========================================================================= -->
+  <style>
+    /* Design Tokens */
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #181818;
+      --line: #2a2a2a;
+      --line-light: #383838;
+      --gold: #F6C90E;
+      --gold-hover: #ffd93b;
+      --tx: #f5f5f2;
+      --mute: #9a9a94;
+      --tp-green: #00b67a;
+      --tp-green-hover: #009e6a;
+      --tp-star: #00b67a;
+      --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--tx);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .handwrite {
+      font-family: 'Caveat', cursive, sans-serif;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-family: 'Fredoka', 'Inter', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      line-height: 1.05;
+      margin: 0 0 16px 0;
+    }
+
+    .lead {
+      color: var(--mute);
+      max-width: 660px;
+      font-size: 16px;
+      margin: 0 0 36px 0;
+    }
+
+    /* -------------------------------------------------------------------------
+       1. GENUINE INSTAGRAM SECTION (@mstcclub)
+       ------------------------------------------------------------------------- */
+    .ig-section {
+      background: #0d0d0d;
+      border-block: 1px solid var(--line);
+      padding: 96px 0;
+      position: relative;
+    }
+
+    .ig-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    /* Verified Profile Bar */
+    .ig-profile-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
+    }
+
+    .ig-profile-info {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .ig-profile-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      padding: 3px;
+      background: var(--ig-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ig-profile-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #000;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ig-profile-meta h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 0 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ig-profile-meta h3 a {
+      color: var(--tx);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .ig-profile-meta h3 a:hover {
+      color: var(--gold);
+    }
+
+    .ig-profile-meta p {
+      color: var(--mute);
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .ig-profile-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+    }
+
+    .ig-badge-item {
+      display: flex;
+      flex-direction: column;
+      border-left: 2px solid var(--line-light);
+      padding-left: 14px;
+    }
+
+    .ig-badge-item b {
+      color: var(--gold);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .ig-badge-item span {
+      color: var(--mute);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .ig-follow-link {
+      background: #0095f6;
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .04em;
+      padding: 12px 24px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .ig-follow-link:hover {
+      background: #1877f2;
+      transform: translateY(-1px);
+      color: #fff;
+    }
+
+    .ig-follow-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Grid of Real Instagram / Campaign Media */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .ig-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ig-grid {
+        grid-template-columns: 1fr;
+      }
+      .ig-profile-badges {
+        display: none;
+      }
+    }
+
+    /* Card Item (Zero Fake App Buttons - 100% Honest Editorial Style) */
+    .ig-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+    }
+
+    .ig-card:hover {
+      border-color: var(--line-light);
+      transform: translateY(-2px);
+    }
+
+    .ig-card-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+    }
+
+    .ig-card-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ig-card-author-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ig-card-author-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ig-card-author-text span {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tx);
+    }
+
+    .ig-card-author-text small {
+      font-size: 11px;
+      color: var(--mute);
+    }
+
+    .ig-card-tag {
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--gold);
+      background: rgba(246, 201, 14, .1);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(246, 201, 14, .2);
+    }
+
+    .ig-card-image-box {
+      aspect-ratio: 1;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+      display: block;
+    }
+
+    .ig-card-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s ease;
+    }
+
+    .ig-card:hover .ig-card-image-box img {
+      transform: scale(1.03);
+    }
+
+    .ig-card-body {
+      padding: 18px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .ig-card-caption {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #d6d6d0;
+      margin: 0;
+    }
+
+    .ig-card-caption b {
+      color: #fff;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .ig-card-caption .tags {
+      display: block;
+      margin-top: 8px;
+      color: #6ab0f8;
+      font-size: 12px;
+      word-break: break-word;
+    }
+
+    .ig-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .ig-card-date {
+      font-size: 11px;
+      color: var(--mute);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .ig-card-view-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color .2s;
+    }
+
+    .ig-card-view-link:hover {
+      color: #fff;
+    }
+
+    /* -------------------------------------------------------------------------
+       2. GENUINE TRUSTPILOT & REVIEWS SECTION (mustsavethecat.co.uk)
+       ------------------------------------------------------------------------- */
+    .reviews-section {
+      background: var(--bg2);
+      border-block: 1px solid var(--line);
+      padding: 96px 0;
+      position: relative;
+    }
+
+    /* Trustpilot Official Brand Banner */
+    .tp-hero-card {
+      background: linear-gradient(180deg, #151515 0%, #0d0d0d 100%);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 36px 32px;
+      margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .tp-hero-card {
+        grid-template-columns: 1fr;
+        padding: 24px 20px;
+      }
+    }
+
+    .tp-brand-lockup {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tp-logo-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tp-star-icon {
+      color: var(--tp-green);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .tp-logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tp-logo-text span {
+      color: var(--tp-green);
+    }
+
+    .tp-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 182, 122, .12);
+      color: var(--tp-green);
+      border: 1px solid rgba(0, 182, 122, .25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .tp-status-pill .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--tp-green);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .tp-brand-lockup h3 {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0;
+      color: #fff;
+    }
+
+    .tp-brand-lockup p {
+      color: var(--mute);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* TrustBox Container Slot */
+    .tp-widget-box {
+      background: #080808;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tp-cta-btn {
+      background: var(--tp-green);
+      color: #ffffff !important;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      width: 100%;
+      max-width: 320px;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 182, 122, .25);
+    }
+
+    .tp-cta-btn:hover {
+      background: var(--tp-green-hover);
+      transform: translateY(-1px);
+    }
+
+    .tp-widget-notice {
+      font-size: 11px;
+      color: var(--mute);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .tp-widget-notice code {
+      background: #181818;
+      padding: 2px 5px;
+      border-radius: 3px;
+      color: var(--gold);
+      font-size: 10px;
+    }
+
+    /* 4-Pillar Verification Grid (100% CMA & Google Merchant Compliant) */
+    .trust-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 960px) {
+      .trust-pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 540px) {
+      .trust-pillars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pillar-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pillar-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(246, 201, 14, .1);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+
+    .pillar-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .pillar-card h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+    }
+
+    .pillar-card p {
+      font-size: 12px;
+      color: var(--mute);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Community Collector Photo Wall */
+    .wall-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 48px;
+      margin-bottom: 20px;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+    }
+
+    .wall-title-row h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin: 0;
+    }
+
+    .wall-title-row span {
+      font-size: 13px;
+      color: var(--mute);
+    }
+
+    .wall-title-row span b {
+      color: var(--gold);
+    }
+
+    .wall-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .wall-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .wall-grid div {
+      aspect-ratio: 1;
+      min-width: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .wall-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s ease;
+    }
+
+    .wall-grid div:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Trustpilot Widget Live Fallback Styling */
+    .trustpilot-widget {
+      min-height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       SECTION 1: OFFICIAL INSTAGRAM FEED TEMPLATE (@mstcclub)
+       Drop-in replacement for <section class="ig-section" id="instagram">
+       ========================================================================= -->
+  <section class="ig-section" id="instagram">
+    <div class="wrap">
+      
+      <!-- Section Title & Instagram Handle -->
+      <div class="ig-header-row">
+        <div>
+          <div class="eyebrow" style="display:flex;align-items:center;gap:8px">
+            <span>Official Social Channel</span>
+            <span class="handwrite" style="color:var(--gold);font-size:22px">@mstcclub</span>
+          </div>
+          <h2>Live From Instagram</h2>
+          <p class="lead">Behind-the-scenes photography from our Cairo street cat medical rescues, 200N combed cotton textile knitting, and zero-plastic kraft packaging.</p>
+        </div>
+        <div>
+          <a class="ig-follow-link" href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Follow @mstcclub
+          </a>
+        </div>
+      </div>
+
+      <!-- Verified Studio Profile Bar -->
+      <div class="ig-profile-card">
+        <div class="ig-profile-info">
+          <div class="ig-profile-avatar">
+            <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="MSTC Official Badge">
+          </div>
+          <div class="ig-profile-meta">
+            <h3><a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener">mstcclub</a></h3>
+            <p>Must Save The Cat · Heavyweight 200N combed cotton funding Cairo street cat rescue · Cairo ⇄ UK</p>
+          </div>
+        </div>
+        <div class="ig-profile-badges">
+          <div class="ig-badge-item">
+            <b>7 Editions</b>
+            <span>Batch 01 Capsule</span>
+          </div>
+          <div class="ig-badge-item">
+            <b>10% Direct</b>
+            <span>Vet Rescue Fund</span>
+          </div>
+          <div class="ig-badge-item">
+            <b>100% Kraft</b>
+            <span>Zero Plastic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Container: Injected dynamically by MSTC_INSTAGRAM_FEED or fallback -->
+      <div class="ig-grid" id="mstc-instagram-feed">
+        
+        <!-- Post Card 1: Cairo Rescue Kitten Sleep -->
+        <article class="ig-card">
+          <div class="ig-card-header">
+            <div class="ig-card-author">
+              <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">
+              <div class="ig-card-author-text">
+                <span>mstcclub</span>
+                <small>Cairo, Egypt</small>
+              </div>
+            </div>
+            <span class="ig-card-tag">Rescue Field</span>
+          </div>
+          <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-image-box">
+            <img src="assets/shoot_15_watermelon_and_sunset_grass_nap.png" alt="Rescue kitten sleeping peacefully on grass with MSTC socks" loading="lazy">
+          </a>
+          <div class="ig-card-body">
+            <p class="ig-caption">
+              <b>mstcclub</b>Sunny garden nap with our Cairo rescue kitten and Batch 01. 10% of every pair funds their veterinary vaccinations, emergency surgeries, and daily feeding.
+              <span class="tags">#MustSaveTheCat #StreetCatsOfCairo #Batch01 #EgyptianCats #AnimalRescue</span>
+            </p>
+            <div class="ig-card-footer">
+              <span class="ig-card-date">Verified Field Photo</span>
+              <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">View Post ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post Card 2: Handcrafted Kraft Packaging -->
+        <article class="ig-card">
+          <div class="ig-card-header">
+            <div class="ig-card-author">
+              <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">
+              <div class="ig-card-author-text">
+                <span>mstcclub</span>
+                <small>Studio Atelier</small>
+              </div>
+            </div>
+            <span class="ig-card-tag">Zero Plastic</span>
+          </div>
+          <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-image-box">
+            <img src="assets/pkg_08_kraft_bags_mic_doodle_mstcclub_bw.png" alt="Handcrafted recycled kraft paper bags with street art doodle" loading="lazy">
+          </a>
+          <div class="ig-card-body">
+            <p class="ig-caption">
+              <b>mstcclub</b>Every single order packed by hand in 100% recycled kraft with original hand-drawn street art doodles and stamped paw marks. Zero single-use plastics, always.
+              <span class="tags">#SustainableStreetwear #ZeroPlastic #KraftPackaging #Artisan #EcoFashion</span>
+            </p>
+            <div class="ig-card-footer">
+              <span class="ig-card-date">Studio Dispatch</span>
+              <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">View Post ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post Card 3: The Qaaf Flagship Stockist -->
+        <article class="ig-card">
+          <div class="ig-card-header">
+            <div class="ig-card-author">
+              <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">
+              <div class="ig-card-author-text">
+                <span>mstcclub</span>
+                <small>The Qaaf Boutique</small>
+              </div>
+            </div>
+            <span class="ig-card-tag">Flagship Stockist</span>
+          </div>
+          <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-image-box">
+            <img src="assets/retail_01_the_qaaf_boutique_display.png" alt="Must Save The Cat display inside The Qaaf concept store" loading="lazy">
+          </a>
+          <div class="ig-card-body">
+            <p class="ig-caption">
+              <b>mstcclub</b>Batch 01 is available in person at @theqaaf concept boutique (ذا قاف · est. 2015) in Zamalek & New Cairo. Feel the 200N combed cotton density before you buy.
+              <span class="tags">#TheQaaf #CairoBoutique #ConceptStore #EgyptianStreetwear #CairoDesign</span>
+            </p>
+            <div class="ig-card-footer">
+              <span class="ig-card-date">Retail Exhibition</span>
+              <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">View Post ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post Card 4: Ginger Rescue Cat & 200N Combed Cotton -->
+        <article class="ig-card">
+          <div class="ig-card-header">
+            <div class="ig-card-author">
+              <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">
+              <div class="ig-card-author-text">
+                <span>mstcclub</span>
+                <small>Rescue Shelter</small>
+              </div>
+            </div>
+            <span class="ig-card-tag">Cat Approved</span>
+          </div>
+          <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-image-box">
+            <img src="assets/shoot_10_ginger_cat_loving_mstc_socks.png" alt="Ginger rescue cat resting chin comfortably on MSTC jacquard socks" loading="lazy">
+          </a>
+          <div class="ig-card-body">
+            <p class="ig-caption">
+              <b>mstcclub</b>Rescue shelter quality inspection. Ultra-dense 200N jacquard combed cotton is soft enough for feline naps and tough enough for city pavements.
+              <span class="tags">#MustSaveTheCat #CatRescue #CairoCats #JacquardKnit #CombedCotton</span>
+            </p>
+            <div class="ig-card-footer">
+              <span class="ig-card-date">Rescue Shelter</span>
+              <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">View Post ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post Card 5: Cairo Cat Street Art & Cultural Heritage -->
+        <article class="ig-card">
+          <div class="ig-card-header">
+            <div class="ig-card-author">
+              <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">
+              <div class="ig-card-author-text">
+                <span>mstcclub</span>
+                <small>Cairo Street Art</small>
+              </div>
+            </div>
+            <span class="ig-card-tag">Original Art</span>
+          </div>
+          <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-image-box">
+            <img src="assets/art_09_ramadan_kareem_cairo_cat.png" alt="Original street art illustration celebrating Cairo cats and cultural heritage" loading="lazy">
+          </a>
+          <div class="ig-card-body">
+            <p class="ig-caption">
+              <b>mstcclub</b>Original artwork celebrating the historic bond between Cairo's urban street cats and Egyptian cultural heritage. Every sock design begins as hand-sketched artwork.
+              <span class="tags">#CairoStreetArt #EgyptianCats #UrbanArt #CulturalHeritage #MSTC</span>
+            </p>
+            <div class="ig-card-footer">
+              <span class="ig-card-date">Original Artwork</span>
+              <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">View Post ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post Card 6: Market Spread & Denim Collection -->
+        <article class="ig-card">
+          <div class="ig-card-header">
+            <div class="ig-card-author">
+              <img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">
+              <div class="ig-card-author-text">
+                <span>mstcclub</span>
+                <small>Pop-Up Exhibition</small>
+              </div>
+            </div>
+            <span class="ig-card-tag">Collection Spread</span>
+          </div>
+          <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-image-box">
+            <img src="assets/shoot_11_denim_jacket_market_spread.png" alt="Pop-up exhibition spread across vintage denim jacket" loading="lazy">
+          </a>
+          <div class="ig-card-body">
+            <p class="ig-caption">
+              <b>mstcclub</b>Pop-up collection spread ready for dispatch. 200-needle density ensures jacquard artwork never distorts when worn, with reinforced heel and toe cushioning.
+              <span class="tags">#MustSaveTheCat #StreetwearUK #PopUpMarket #Craftsmanship #SockGame</span>
+            </p>
+            <div class="ig-card-footer">
+              <span class="ig-card-date">Studio Flatlay</span>
+              <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">View Post ↗</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION 2: GENUINE TRUSTPILOT INTEGRATION (mustsavethecat.co.uk)
+       Drop-in replacement for <section id="reviews">
+       ========================================================================= -->
+  <section id="reviews" class="reviews-section">
+    <div class="wrap">
+      
+      <div class="eyebrow" style="display:flex;align-items:center;gap:8px">
+        <span>Verified Transparency &amp; Feedback</span>
+        <span class="handwrite" style="color:var(--gold);font-size:20px">No fake reviews. Ever.</span>
+      </div>
+      <h2>Independent Reviews &amp; Trust</h2>
+      <p class="lead">We believe in complete transparency. We never write, purchase, or simulate reviews. All customer reviews for Must Save The Cat are collected and verified independently via Trustpilot.</p>
+
+      <!-- Trustpilot Official Verification Card -->
+      <div class="tp-hero-card">
+        <div class="tp-brand-lockup">
+          <div class="tp-logo-line">
+            <span class="tp-star-icon">★</span>
+            <div class="tp-logo-text">Trustpilot <span>UK</span></div>
+            <div class="tp-status-pill">
+              <span class="dot"></span> Verified Independent Platform
+            </div>
+          </div>
+          <h3>Must Save The Cat on Trustpilot</h3>
+          <p>Have you ordered Batch 01 or our Xmas Gift Packs? Share your honest feedback on fabric softness, 200N needle durability, packaging, and delivery. Your voice helps our small mission grow and keeps us accountable.</p>
+        </div>
+
+        <div class="tp-widget-box">
+          <!-- Official Trustpilot TrustBox Widget Placeholder
+               When data-businessunit-id is provided by the merchant, the official TrustBox renders here. -->
+          <div class="trustpilot-widget" 
+               id="mstc-trustbox"
+               data-locale="en-GB" 
+               data-template-id="5419b6a8b0d04a076446a9ad" 
+               data-businessunit-id="" 
+               data-style-height="24px" 
+               data-style-width="100%" 
+               data-theme="dark"
+               data-min-review-count="0"
+               data-style-alignment="center">
+            <a href="https://uk.trustpilot.com/review/mustsavethecat.co.uk" target="_blank" rel="noopener">Review mustsavethecat.co.uk on Trustpilot</a>
+          </div>
+
+          <!-- Direct Verified Review Collector Button (Compliant with CMA & GMC) -->
+          <a href="https://uk.trustpilot.com/review/mustsavethecat.co.uk" target="_blank" rel="noopener" class="tp-cta-btn">
+            <span style="font-size:16px">★</span> Review Us on Trustpilot ↗
+          </a>
+          <p class="tp-widget-notice">
+            Official profile: <code>uk.trustpilot.com/review/mustsavethecat.co.uk</code><br>
+            Direct third-party verification · Zero fabricated testimonials.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4-Pillar Studio Trust & Compliance Guarantees -->
+      <div class="trust-pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M8 12l3 3 5-6"/></svg>
+          </div>
+          <h4>Oeko-Tex Standard 100</h4>
+          <p>Yarns and dyes tested free of harmful chemicals. Hypoallergenic, breathable, and gentle on sensitive skin.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h4>14-Day UK Returns</h4>
+          <p>Full statutory UK consumer protection under the Consumer Rights Act 2015. Easy returns and size exchanges.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 018-3 4.5 4.5 0 018 3c0 6-8 11-8 11z"/></svg>
+          </div>
+          <h4>10% Direct Vet Care</h4>
+          <p>Every single pair sold donates 10% directly to licensed veterinary clinics treating street cats in Cairo.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <h4>Tracked UK Dispatch</h4>
+          <p>Orders packed by hand in zero-plastic kraft paper and dispatched tracked via Royal Mail 48 from our UK hub.</p>
+        </div>
+      </div>
+
+      <!-- Genuine Community Collector Photo Wall -->
+      <div class="wall-title-row">
+        <div>
+          <h3>Community &amp; Lifestyle Gallery</h3>
+          <span>Real shoot photography, packaging, and on-feet moments. Tag <b>#MustSaveTheCat</b> on Instagram.</span>
+        </div>
+        <a href="https://www.instagram.com/mstcclub/" target="_blank" rel="noopener" class="ig-card-view-link">Explore @mstcclub ↗</a>
+      </div>
+      <div class="wall-grid" id="wall" aria-label="Community photo wall"></div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       MSTC FEED & TRUSTPILOT JAVASCRIPT LOADER (Paste into <script> in index.html)
+       ========================================================================= -->
+  <script>
+    (function () {
+      /**
+       * MSTC STORE INTEGRATION CONFIGURATION
+       * Set your Behold.so feed URL or Trustpilot Business Unit ID here when ready.
+       */
+      window.MSTC_INTEGRATION_CONFIG = {
+        // Instagram Integration Settings:
+        // Option 1: Leave blank to use the high-res studio campaign fallback (recommended until Behold.so token is added).
+        // Option 2: Add your Behold.so JSON Feed URL (e.g., "https://feeds.behold.so/YOUR_FEED_ID").
+        beholdFeedUrl: "",
+
+        // Option 3: Or provide official Instagram post permalinks to embed via Instagram oEmbed:
+        instagramPostUrls: [],
+
+        // Trustpilot Integration Settings:
+        // Once claimed at business.trustpilot.com, paste your 24-character hexadecimal Business Unit ID:
+        // Example: "65f01a2b3c4d5e6f7a8b9c0d"
+        trustpilotBusinessUnitId: "",
+        trustpilotDomain: "mustsavethecat.co.uk",
+        trustpilotReviewUrl: "https://uk.trustpilot.com/review/mustsavethecat.co.uk"
+      };
+
+      // 1. Initialize Trustpilot Widget Script
+      function initTrustpilot() {
+        var tpScript = document.createElement("script");
+        tpScript.type = "text/javascript";
+        tpScript.src = "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+        tpScript.async = true;
+        tpScript.onload = function () {
+          var widgetEl = document.getElementById("mstc-trustbox");
+          var buId = window.MSTC_INTEGRATION_CONFIG.trustpilotBusinessUnitId;
+          if (widgetEl && buId) {
+            widgetEl.setAttribute("data-businessunit-id", buId);
+            if (window.Trustpilot) {
+              window.Trustpilot.loadFromElement(widgetEl);
+            }
+          }
+        };
+        document.head.appendChild(tpScript);
+      }
+
+      // 2. Initialize Instagram Feed (Behold.so JSON Feed or Studio Verified Fallback)
+      function initInstagramFeed() {
+        var cfg = window.MSTC_INTEGRATION_CONFIG;
+        var feedContainer = document.getElementById("mstc-instagram-feed");
+        if (!feedContainer) return;
+
+        // If a Behold.so JSON feed URL is configured, fetch live posts
+        if (cfg.beholdFeedUrl && cfg.beholdFeedUrl.trim().length > 0) {
+          fetch(cfg.beholdFeedUrl)
+            .then(function (res) { return res.json(); })
+            .then(function (posts) {
+              if (Array.isArray(posts) && posts.length > 0) {
+                renderBeholdFeed(posts.slice(0, 6), feedContainer);
+              }
+            })
+            .catch(function (err) {
+              console.warn("[MSTC Instagram] Behold feed failed, using verified studio fallback:", err);
+            });
+        }
+      }
+
+      function renderBeholdFeed(posts, container) {
+        var html = posts.map(function (post) {
+          var mediaUrl = post.mediaUrl || post.thumbnailUrl || "assets/logo_06_mstc_badge_original_yellow_black_transparent.png";
+          var permalink = post.permalink || "https://www.instagram.com/mstcclub/";
+          var caption = post.caption || "Must Save The Cat campaign photo";
+          var dateStr = post.timestamp ? new Date(post.timestamp).toLocaleDateString("en-GB", { month: "short", day: "numeric", year: "numeric" }) : "Live on Instagram";
+
+          return (
+            '<article class="ig-card">' +
+              '<div class="ig-card-header">' +
+                '<div class="ig-card-author">' +
+                  '<img src="assets/logo_06_mstc_badge_original_yellow_black_transparent.png" alt="mstcclub" class="ig-card-author-avatar">' +
+                  '<div class="ig-card-author-text">' +
+                    '<span>mstcclub</span>' +
+                    '<small>Live Feed</small>' +
+                  '</div>' +
+                '</div>' +
+                '<span class="ig-card-tag">Instagram Live</span>' +
+              '</div>' +
+              '<a href="' + permalink + '" target="_blank" rel="noopener" class="ig-card-image-box">' +
+                '<img src="' + mediaUrl + '" alt="MSTC Instagram Post" loading="lazy">' +
+              '</a>' +
+              '<div class="ig-card-body">' +
+                '<p class="ig-caption"><b>mstcclub</b> ' + escapeHtml(caption.slice(0, 150)) + (caption.length > 150 ? '...' : '') + '</p>' +
+                '<div class="ig-card-footer">' +
+                  '<span class="ig-card-date">' + dateStr + '</span>' +
+                  '<a href="' + permalink + '" target="_blank" rel="noopener" class="ig-card-view-link">View on Instagram ↗</a>' +
+                '</div>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join("");
+
+        container.innerHTML = html;
+      }
+
+      function escapeHtml(text) {
+        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      // 3. Initialize Community Photo Wall with Verified Real Assets
+      function initPhotoWall() {
+        var wallContainer = document.getElementById("wall");
+        if (!wallContainer) return;
+
+        var WALL_IMAGES = [
+          "assets/lifestyle_kraft_pouch_denim.jpg",
+          "assets/lifestyle_cat_sleeping_legs_grass.jpg",
+          "assets/lifestyle_artist_studio_palette.jpg",
+          "assets/lifestyle_nike_sneakers_electric_stripes.jpg",
+          "assets/lifestyle_store_wooden_display.jpg",
+          "assets/shoot_01_watermelon_socks_nikes_grass.png"
+        ];
+
+        wallContainer.innerHTML = WALL_IMAGES.map(function (src, idx) {
+          return '<div><img src="' + src + '" alt="MSTC lifestyle photo ' + (idx + 1) + '" loading="lazy"></div>';
+        }).join("");
+      }
+
+      // Boot loaders on DOM ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () {
+          initTrustpilot();
+          initInstagramFeed();
+          initPhotoWall();
+        });
+      } else {
+        initTrustpilot();
+        initInstagramFeed();
+        initPhotoWall();
+      }
+    })();
+  </script>
+
+</body>
+</html>
