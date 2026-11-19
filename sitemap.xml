@@ -10,4 +10,54 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/pharaoh-hieroglyphs/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/giza-guardian-sphinx/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/horizon-sunset-cat/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/electric-stripes-blue-cat/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/all-over-sketch-cats/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/duck-and-cat-collector/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/egyptian-street-cat-at-night/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/ancient-egypt-cairo-night-trio/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/classic-cat-socks-trio/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mustsavethecat.co.uk/socks/collector-4-pair-christmas-box/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
